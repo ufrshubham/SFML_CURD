@@ -19,7 +19,7 @@
 3. Change directory to cloned folder. For most cases this will be 
     - `cd SFML_CURD`
 
-4. Changed directory to build folder. Note that this step is totally optional. You can run the cmake command directly from the project root. But this will fill the root with many cmake specific stuff which is of no use to you.
+4. Changed directory to build folder (create is not already present). Note that this step is totally optional. You can run the cmake command directly from the project root. But this will fill the root with many cmake specific stuff which is of no use to you.
     - `cd build`
 
 5. Run `cmake ..` to generate makefile. Don't forget the `..`
