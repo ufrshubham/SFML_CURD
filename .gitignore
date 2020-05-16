@@ -344,3 +344,12 @@ healthchecksdb
 *.zip
 *.vsix
 sqlite_meta/
+
+# VS Code related stuff
+.vscode/
+
+# Build directories
+build/
+
+# Don't add any .db file
+*.db
