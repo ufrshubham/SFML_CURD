@@ -6,20 +6,19 @@
 
 ### Dependencies
 1. [SFML](https://www.sfml-dev.org/)
-    - `sudo apt install libsfml-dev`
 2. [SQlite3](https://sqlite.org/)
-    - `sudo apt install libsqlite3-dev`
 
 ### Build instructions
 
-1. Install dependencies using your default package manager. If on Windows or Mac, you are on your own.
+1. Clone this repository using `git clone --recurse-submodules https://github.com/ufrshubham/SFML_CURD.git`
 
-2. Clone this repository using `git clone https://github.com/ufrshubham/SFML_CURD.git`
-
-3. Change directory to cloned folder. For most cases this will be 
+2. Change directory to cloned folder. For most cases this will be 
     - `cd SFML_CURD`
 
-4. Changed directory to build folder (create is not already present). Note that this step is totally optional. You can run the cmake command directly from the project root. But this will fill the root with many cmake specific stuff which is of no use to you.
+3. Make sure that SFML build generates static libs. For this go to **CMakeLists.txt** located under sfml directory (SFML_CURD/sfml/) and set **BUILD_SHARED_LIBS** to FALSE. Like so,
+    - `sfml_set_option(BUILD_SHARED_LIBS FALSE BOOL "TRUE to build SFML as shared libraries, FALSE to build it as static libraries")`
+
+4. Change directory to build folder (create if not already present using `mkdir build`). Note that this step is totally optional. You can run the cmake command directly from the project root. But this will fill the root with many cmake specific stuff which is of no use to you.
     - `cd build`
 
 5. Run `cmake ..` to generate makefile. Don't forget the `..`
@@ -40,24 +39,25 @@
         - `ext install ms-vscode.cmake-tools`
 
 3. Now clone this repository and open it in VS Code.
-    - `git clone https://github.com/ufrshubham/SFML_CURD.git`
+    - `git clone --recurse-submodules https://github.com/ufrshubham/SFML_CURD.git`
     - `code SFML_CURD/`
 
-4. Open command palette (Ctrl + Shift + P) and run **CMake Configure**. This will make necessary configurations for cmake.
+4. Make sure that SFML build generates static libs. For this go to **CMakeLists.txt** located under sfml directory (SFML_CURD/sfml/) and set **BUILD_SHARED_LIBS** to FALSE. Like so,
+    - `sfml_set_option(BUILD_SHARED_LIBS FALSE BOOL "TRUE to build SFML as shared libraries, FALSE to build it as static libraries")`
 
-5. Open command palette (Ctrl + Shift + P) and run **CMake Build**. This will build the project.
+5. Open command palette (Ctrl + Shift + P) and run **CMake Configure**. This will make necessary configurations for cmake.
 
-6. Open command palette (Ctrl + Shift + P) and run **CMake Debug**. This will run the project in debug mode.
+6. Open command palette (Ctrl + Shift + P) and run **CMake Build**. This will build the project.
+
+7. Open command palette (Ctrl + Shift + P) and run **CMake Debug**. This will run the project in debug mode.
 
 ### Note
 
-- Right now **SFML** and **SQLite** link dynamically to **sfml-sqlite**. As a result of this, to run the generated executable libsqlite3.so, libsfml-graphics.so, libsfml-window.so and libsfml-system.so needs to be placed in the same directory as the executable.
-
-- In future the linking will be changed to static so that the **sfml-sqlite** becomes independednt.
+- I am still new to CMake, so there is a good chance that above step will not work.
 
 ---
 
-- Files under *cmake_modules/* are not covered under license for this project.
+- Files under *cmake_modules/* and all the submodules are not covered under license for this project.
 - This project is actively developed and tested on 64-bit Linux platform (Linux Mint to be precise) with Visual Studio Code.
 - For more queries about this repo feel free to shoot an email on ufrshubham@gmail.com
 - For more details about SFML head over to their [offical webpage](https://www.sfml-dev.org/).

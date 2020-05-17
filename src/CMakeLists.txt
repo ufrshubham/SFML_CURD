@@ -1,29 +1,37 @@
 # Copyright (c) 2020 - Shubham Kamble
 
-# SFML related stuff
-# If you wan to link statically to sfmlm uncomment this line
-# set(SFML_STATIC_LIBRARIES TRUE)
+# Set path to all the Find.cmake files
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
+# Set SFML_DIR so that find_package() will find SFMLConfig.cmake there
+set(SFML_DIR ${PROJECT_BINARY_DIR}/sfml/)
+
+# SFML related stuff
+# If you want to link statically to sfml uncomment this line
+set(SFML_STATIC_LIBRARIES TRUE)
+
+# This section is not needed now, because SFML and SQlite will be build from scratch.
+############################################################################
 # SFML has changed the way to find sfml from 2.5 and onwards.
 # FindSFML.cmake present in cmake_modules will not work.
 # If you have SFML 2.5 or late remove the Detect and add SFML section 
 # and uncomment the below line.
-# find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
-
-# Set path to all the Find.cmake files
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
-
-# Detect and add SFML
-find_package(SFML 2.4 REQUIRED system window graphics network audio)
+# find_package(SFML 2.5 COMPONENTS graphics window system)
 
 # Detect and add Sqlite3
-find_package(SQLITE3 REQUIRED)
+# find_package(SQLITE3 REQUIRED)
+############################################################################
+
+# All header will be in ./include/
+set(include_dir ${PROJECT_SOURCE_DIR}/include)
+include_directories(${include_dir} ${PROJECT_SOURCE_DIR}/sfml/include ${PROJECT_SOURCE_DIR}/sqlite)
+link_directories(${PROJECT_BINARY_DIR}/sfml/lib/ ${PROJECT_BINARY_DIR}/sqlite/lib/)
 
 # Main target
-add_executable(sfml-sqlite
+add_executable(sqlite-sfml 
                 ${include_dir}/DatabaseManager.hpp 
                 main.cpp 
                 DatabaseManager.cpp)
 
 # Link with required libraries
-target_link_libraries(sfml-sqlite sfml-graphics sfml-window sfml-system sqlite3)
+target_link_libraries(sqlite-sfml sfml-graphics sfml-window sfml-system sqlite3)
