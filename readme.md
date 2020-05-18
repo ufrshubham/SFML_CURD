@@ -5,8 +5,22 @@
 ---
 
 ### Dependencies
+
 1. [SFML](https://www.sfml-dev.org/)
+
 2. [SQlite3](https://sqlite.org/)
+
+3. libudev-dev
+
+4. libopenal-dev
+
+5. libvorbis-dev
+
+6. libflac-dev
+
+7. libxrandr-dev
+
+8. libfreetype6-dev
 
 ### Build instructions
 
