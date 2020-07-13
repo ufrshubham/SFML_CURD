@@ -30,8 +30,8 @@ int main()
         for (const auto &t : tasks)
         {
             std::cout << t.GetTitle() << std::endl;
-            std::cout << (int)t.GetStatus() << "\n"
-                      << std::endl;
+            std::cout << (int)t.GetStatus() << "\n";
+            std::cout << std::endl;
         }
     }
     catch (const std::exception &e)
