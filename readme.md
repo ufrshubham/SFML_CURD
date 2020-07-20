@@ -22,7 +22,13 @@
 
 8. libfreetype6-dev
 
-### Build instructions
+### Automated initial setup
+
+- Note if you have already cloned this repo without reading these instructions you can run **perform_initial_setup.py** located under scripts/ directory to pull the sub-modules and install required libs. 
+- This script is tested only on Linux platform with apt.
+- If this script works for you, then you will only have to run `cmake ..` from build directory to build this project.
+
+### Build instructions 
 
 1. Clone this repository using `git clone --recurse-submodules https://github.com/ufrshubham/SFML_CURD.git`
 

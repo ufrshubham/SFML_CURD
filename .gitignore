@@ -353,3 +353,6 @@ build/
 
 # Don't add any .db file
 *.db
+
+# Scripts
+.do_not_delete
