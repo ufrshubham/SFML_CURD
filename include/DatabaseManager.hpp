@@ -1,7 +1,7 @@
 /**
  * @file DatabaseManager.hpp
  * @author Shubham Kamble (ufrshubham@gmail.com)
- * @brief This file contains class to manager sqlite database in object oriented way.
+ * @brief This file contains class to manage sqlite database in an object oriented way.
  * @version 0.1
  * @date 2020-05-16
  * 

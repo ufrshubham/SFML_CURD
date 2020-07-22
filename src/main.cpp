@@ -11,7 +11,7 @@
 
 #include <iostream>
 #include "DatabaseManager.hpp"
-#include "SFML/Graphics.hpp"
+#include "Application.hpp"
 
 int main()
 {
@@ -39,22 +39,6 @@ int main()
         std::cerr << e.what() << '\n';
     }
 
-#ifdef SFML_TEST
-    // SFML test.
-    sf::RenderWindow window({200, 200}, "SFML is working!!!");
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
-        }
-
-        window.clear(sf::Color::Blue);
-        window.display();
-    }
-#endif
+    auto app = Application(400, 400, "Sfml-Sqlite Curd");
+    app.Run();
 }

@@ -30,10 +30,12 @@ link_directories(${PROJECT_BINARY_DIR}/sfml/lib/ ${PROJECT_BINARY_DIR}/sqlite/li
 # Main target
 add_executable(sqlite-sfml 
                 ${include_dir}/DatabaseManager.hpp 
-                ${include_dir}/Task.hpp 
+                ${include_dir}/Task.hpp
+                ${include_dir}/Application.hpp
                 main.cpp 
                 DatabaseManager.cpp
-                Task.cpp)
+                Task.cpp
+                Application.cpp)
 
 # Link with required libraries
 target_link_libraries(sqlite-sfml sfml-graphics sfml-window sfml-system sqlite3)
