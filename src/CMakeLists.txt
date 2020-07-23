@@ -35,7 +35,8 @@ add_executable(sqlite-sfml
                 main.cpp 
                 DatabaseManager.cpp
                 Task.cpp
-                Application.cpp)
+                Application.cpp
+                )
 
 # Link with required libraries
 target_link_libraries(sqlite-sfml sfml-graphics sfml-window sfml-system sqlite3)

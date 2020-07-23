@@ -346,7 +346,7 @@ healthchecksdb
 sqlite_meta/
 
 # VS Code related stuff
-.vscode/
+c_cpp_properties.json
 
 # Build directories
 build/

@@ -1,3 +1,19 @@
+########################################################################
+# @file perform_initial_setup.py
+# @author Shubham Kamble (ufrshubham@gmail.com)
+# @brief This script is created for those who do not want to follow the
+#        long and complex process of setting up the development environment.
+#        When called, this script will clone the SFML submodule under sfml/
+#        if not done already, else it will simple pull the latest changes for it.
+#        Additionally, it also installs required libs for building this project.
+#        This will most be required for Linux and Mac. Right now, only Linux
+#        is supported(mostly because I don't access to a Mac) for auto-install of libs.
+#        On top of this, only distros with 'apt' are supported.
+# @version 0.1
+# @date 2020-07-23
+# Copyright (c) 2020 Shubham Kamble
+########################################################################
+
 import os
 import platform
 import subprocess
