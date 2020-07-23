@@ -347,6 +347,8 @@ sqlite_meta/
 
 # VS Code related stuff
 c_cpp_properties.json
+launch.json
+settings.json
 
 # Build directories
 build/
