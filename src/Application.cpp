@@ -10,6 +10,7 @@
  */
 
 #include "Application.hpp"
+#include "TGUI/TGUI.hpp"
 
 Application::Application(unsigned int width, unsigned int height, const std::string& title)
 {
@@ -22,6 +23,17 @@ Application::~Application()
 
 void Application::Run()
 {
+    // Some test code to see if TGUI works!
+    tgui::Gui gui{m_window};
+    auto myButton = tgui::Button::create("Hey! Don't press this!!!");
+
+    myButton->setPosition("30%", "30%");
+    myButton->onClick([&myButton](){
+        myButton->setText("I told you don't press this.\nYou are an idiot.");
+    });
+
+    gui.add(myButton);
+
     while (m_window.isOpen())
     {
         sf::Event event;
@@ -31,9 +43,11 @@ void Application::Run()
             {
                 m_window.close();
             }
+            gui.handleEvent(event);
         }
 
         m_window.clear(sf::Color::Red);
+        gui.draw();
         m_window.display();
     }
 }

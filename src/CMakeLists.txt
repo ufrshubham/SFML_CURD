@@ -24,8 +24,13 @@ set(SFML_STATIC_LIBRARIES TRUE)
 
 # All header will be in ./include/
 set(include_dir ${PROJECT_SOURCE_DIR}/include)
-include_directories(${include_dir} ${PROJECT_SOURCE_DIR}/sfml/include ${PROJECT_SOURCE_DIR}/sqlite)
-link_directories(${PROJECT_BINARY_DIR}/sfml/lib/ ${PROJECT_BINARY_DIR}/sqlite/lib/)
+
+include_directories(
+                        ${include_dir}
+                         ${PROJECT_SOURCE_DIR}/sfml/include 
+                         ${PROJECT_SOURCE_DIR}/sqlite
+                         ${PROJECT_SOURCE_DIR}/tgui/include
+                    )
 
 # Main target
 add_executable(sqlite-sfml 
@@ -39,4 +44,4 @@ add_executable(sqlite-sfml
                 )
 
 # Link with required libraries
-target_link_libraries(sqlite-sfml sfml-graphics sfml-window sfml-system sqlite3)
+target_link_libraries(sqlite-sfml sfml-graphics sfml-window sfml-system sqlite3 tgui)
