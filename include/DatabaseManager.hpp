@@ -83,3 +83,14 @@ public:
      */
     static int CollectTasksCallBack(void *ptrToTaskVec, int nEntries, char **entries, char **columns);
 };
+
+/**
+ * @brief An enum to define the status of database.
+ * 
+ */
+enum class DatabaseStatus
+{
+    OPEN,
+    CLOSE,
+    FAILED
+};
