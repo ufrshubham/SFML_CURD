@@ -12,7 +12,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-#include "TGUI/Gui.hpp"
+#include "TGUI/TGUI.hpp"
 #include "DatabaseManager.hpp"
 
 class Application
