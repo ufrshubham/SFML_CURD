@@ -4,7 +4,7 @@
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
 # Set SFML_DIR so that find_package() will find SFMLConfig.cmake there
-set(SFML_DIR ${PROJECT_BINARY_DIR}/sfml/)
+set(SFML_DIR ${PROJECT_BINARY_DIR}/vendor/sfml/)
 
 # SFML related stuff
 # If you want to link statically to sfml uncomment this line
@@ -27,9 +27,9 @@ set(include_dir ${PROJECT_SOURCE_DIR}/include)
 
 include_directories(
                         ${include_dir}
-                         ${PROJECT_SOURCE_DIR}/sfml/include 
-                         ${PROJECT_SOURCE_DIR}/sqlite
-                         ${PROJECT_SOURCE_DIR}/tgui/include
+                         ${PROJECT_SOURCE_DIR}/vendor/sfml/include 
+                         ${PROJECT_SOURCE_DIR}/vendor/sqlite
+                         ${PROJECT_SOURCE_DIR}/vendor/tgui/include
                     )
 
 # Main target

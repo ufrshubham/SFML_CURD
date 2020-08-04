@@ -6,7 +6,7 @@ set (CMAKE_CXX_STANDARD 17)
 message(STATUS "Using C++17")
 
 # Add all the subdirectories
-add_subdirectory(sfml)
-add_subdirectory(sqlite)
-add_subdirectory(tgui)
+add_subdirectory(vendor/sfml)
+add_subdirectory(vendor/sqlite)
+add_subdirectory(vendor/tgui)
 add_subdirectory(src)
