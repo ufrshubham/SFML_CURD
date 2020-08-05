@@ -15,6 +15,6 @@
 
 int main()
 {
-    auto app = Application(1280, 720, "Sfml-Sqlite Curd", "sqlite-is-working.db");
+    auto app = Application(800, 800, "Sfml-Sqlite Curd", "sqlite-is-working.db");
     app.Run();
 }

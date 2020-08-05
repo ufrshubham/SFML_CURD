@@ -55,6 +55,8 @@ class Application
      */
     DatabaseStatus InitDB();
 
+    void AddTaskGui();
+
 public:
 
     /**

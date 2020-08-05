@@ -14,7 +14,7 @@
 
 #include <iostream>
 
-Application::Application(unsigned int width, unsigned int height, const std::string &title, const std::string &databasePath) : m_window(sf::VideoMode(width, height), title),
+Application::Application(unsigned int width, unsigned int height, const std::string &title, const std::string &databasePath) : m_window(sf::VideoMode(width, height), title, sf::Style::Close),
                                                                                                                                m_gui(m_window),
                                                                                                                                m_dman(),
                                                                                                                                m_databasePath(databasePath)
@@ -96,10 +96,19 @@ void Application::InitUI()
         listView->addItem(taskData);
         listView->setItemHeight(40);
         listView->setTextSize(20);
-        listView->setSize({"100 %", "100 %"});
+        listView->setSize("100%, 100%");
     }
 
+    auto button = tgui::Button::create();
+    button->setText("+");
+    button->setSize(40, 40);
+    button->setPosition("&.width - 70", "&.height - 70");
+    button->onClick([this]() {
+        this->AddTaskGui();
+    });
+
     m_gui.add(listView);
+    m_gui.add(button);
 }
 
 DatabaseStatus Application::InitDB()
@@ -119,4 +128,65 @@ DatabaseStatus Application::InitDB()
     }
 
     return status;
+}
+
+void Application::AddTaskGui()
+{
+    // Major refactoring needed !!!!!
+    auto addTaskWindow = tgui::ChildWindow::create("Add new task");
+    addTaskWindow->setTextSize(20);
+    addTaskWindow->setSize(600, 200);
+    m_gui.add(addTaskWindow);
+
+    auto vLayout = tgui::VerticalLayout::create();
+    vLayout->setSize("100%", "100%");
+
+    auto hLayout = tgui::HorizontalLayout::create();
+    hLayout->setSize("100%", "80%");
+
+    auto taskTitle = tgui::TextBox::create();
+    taskTitle->setDefaultText("Enter task title here");
+    auto taskStatus = tgui::CheckBox::create("Completed?");
+
+    hLayout->addSpace(0.2f);
+    hLayout->add(taskTitle);
+    hLayout->addSpace(0.2f);
+    hLayout->add(taskStatus);
+    hLayout->addSpace(0.2f);
+
+    taskTitle->setSize("80%", "100%");
+    taskStatus->setSize("20%", "100%");
+
+    auto hLayout2 = tgui::HorizontalLayout::create();
+    hLayout2->setSize("100%", "20%");
+
+    auto submitButton = tgui::Button::create("Done");
+    submitButton->setSize("80%", "20%");
+
+    submitButton->onClick([this, taskStatus, taskTitle, addTaskWindow]() {
+        auto task = Task();
+        auto tStatus = TaskStatus::Pending;
+        if (taskStatus->isChecked())
+        {
+            tStatus = TaskStatus::Completed;
+        }
+        task.SetStatus(tStatus);
+        task.SetTitle(taskTitle->getText().toUtf8());
+
+        this->m_dman.AddTask(task);
+        addTaskWindow->close();
+        this->InitUI();
+    });
+
+    hLayout2->addSpace(0.5f);
+    hLayout2->add(submitButton);
+    hLayout2->addSpace(0.5f);
+
+    vLayout->addSpace(0.2f);
+    vLayout->add(hLayout);
+    vLayout->addSpace(0.5f);
+    vLayout->add(hLayout2);
+    vLayout->addSpace(0.5f);
+
+    addTaskWindow->add(vLayout);
 }
