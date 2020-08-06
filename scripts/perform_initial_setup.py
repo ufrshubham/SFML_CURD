@@ -18,7 +18,14 @@ def main():
     my_path = Path(os.path.abspath(__file__)).parent
 
     if my_path.joinpath('.do_not_delete').exists():
-        print("\ngit submodule foreach 'git fetch origin; git checkout $(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx'")
+        print("\ngit pull --recurse-submodules")
+        subprocess.call([
+            "git",
+            "pull",
+            "--recurse-submodules"
+        ])
+
+        print("\ngit submodule foreach git fetch origin; git checkout $(git rev-parse --abbrev-ref HEAD); git reset --hard origin/$(git rev-parse --abbrev-ref HEAD); git submodule update --recursive; git clean -dfx")
         subprocess.call([
             "git",
             "submodule",
