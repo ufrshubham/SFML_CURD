@@ -81,7 +81,7 @@ void Application::InitUI()
     const auto &tasks = m_dman.GetAllTasks();
     for (const auto &task : tasks)
     {
-        std::vector<tgui::String> taskData(3);
+        std::vector<tgui::String> taskData(2);
         taskData[0] = task.GetTitle();
 
         if (task.GetStatus() == TaskStatus::Pending)
@@ -169,10 +169,8 @@ void Application::AddTaskGui()
         {
             tStatus = TaskStatus::Completed;
         }
-        if(taskTitle->getText().toUtf8()==""){
-
-        }
-        else{
+        if(taskTitle->getText().toUtf8()!=""){
+            //i don
             task.SetStatus(tStatus);
             task.SetTitle(taskTitle->getText().toUtf8());
 
