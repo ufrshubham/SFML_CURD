@@ -55,7 +55,20 @@ class Application
      */
     DatabaseStatus InitDB();
 
+    /**
+     * @brief This method launches a sub-windows to takes user inputs
+     *        and then add a new task in UI as well as database.
+     *        Right now this is a temporary solution and might have to be reworked.
+     * 
+     */
     void AddTaskGui();
+    
+    /**
+     * @brief This method removed the selected item from UI view.
+     *        [NOTE] : It does not yet remove the actual task from database.
+     * 
+     */
+    void DeleteSelected();
 
 public:
 
