@@ -139,6 +139,7 @@ void Application::AddTaskGui()
     auto addTaskWindow = tgui::ChildWindow::create("Add new task");
     addTaskWindow->setTextSize(20);
     addTaskWindow->setSize(600, 200);
+    addTaskWindow->setPosition(100,100);
     m_gui.add(addTaskWindow);
 
     auto vLayout = tgui::VerticalLayout::create();
