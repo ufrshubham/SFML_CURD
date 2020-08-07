@@ -81,7 +81,7 @@ void Application::InitUI()
     const auto &tasks = m_dman.GetAllTasks();
     for (const auto &task : tasks)
     {
-        std::vector<tgui::String> taskData(2);
+        std::vector<tgui::String> taskData(3);
         taskData[0] = task.GetTitle();
 
         if (task.GetStatus() == TaskStatus::Pending)
@@ -92,13 +92,9 @@ void Application::InitUI()
         {
             taskData[1] = "Completed";
         }
-
         listView->addItem(taskData);
         listView->setItemHeight(40);
         listView->setTextSize(20);
-        listView->onDoubleClick([this](){
-            this->DeleteConfirmGUI();
-        });
         listView->setSize("100%, 100%");
     }
 
@@ -192,41 +188,4 @@ void Application::AddTaskGui()
     vLayout->addSpace(0.5f);
 
     addTaskWindow->add(vLayout);
-}
-
-void Application::DeleteConfirmGUI()
-{
-    auto deleteWindow=tgui::ChildWindow::create("Delete This Item");
-    deleteWindow->setTextSize(20);
-    deleteWindow->setSize(300,150);
-    deleteWindow->setPosition(200,100);
-    m_gui.add(deleteWindow);
-
-    auto vLayout = tgui::VerticalLayout::create();
-    vLayout->setSize("100%", "100%");
-    auto hLayout =tgui::HorizontalLayout::create();
-    hLayout->setSize("100%", "80%");
-
-    auto label=tgui::Label::create();
-    label->setText("Are you Sure You Want to Delete?");
-
-    auto Yesbutton=tgui::Button::create();
-    Yesbutton->setText("Yes");
-
-    auto Nobutton=tgui::Button::create();
-    Nobutton->setText("No");
-
-    hLayout->add(label);
-    vLayout->addSpace(0.2f);
-
-    auto hLayout2=tgui::HorizontalLayout::create();
-    hLayout2->setSize("100%", "80%");
-
-    hLayout2->add(Yesbutton);
-    hLayout2->add(Nobutton);
-
-    vLayout->add(hLayout);
-    vLayout->add(hLayout2);
-
-    deleteWindow->add(vLayout);
 }

@@ -56,7 +56,6 @@ class Application
     DatabaseStatus InitDB();
 
     void AddTaskGui();
-    void DeleteConfirmGUI();
 
 public:
 
