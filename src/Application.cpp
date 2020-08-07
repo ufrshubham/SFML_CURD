@@ -96,6 +96,9 @@ void Application::InitUI()
         listView->addItem(taskData);
         listView->setItemHeight(40);
         listView->setTextSize(20);
+        listView->onDoubleClick([this](){
+            this->AddTaskGui();
+        });
         listView->setSize("100%, 100%");
     }
 
