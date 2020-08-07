@@ -96,6 +96,9 @@ void Application::InitUI()
         listView->addItem(taskData);
         listView->setItemHeight(40);
         listView->setTextSize(20);
+        listView->onDoubleClick([this](){
+            this->AddTaskGui();
+        });
         listView->setSize("100%, 100%");
     }
 
@@ -136,6 +139,7 @@ void Application::AddTaskGui()
     auto addTaskWindow = tgui::ChildWindow::create("Add new task");
     addTaskWindow->setTextSize(20);
     addTaskWindow->setSize(600, 200);
+    addTaskWindow->setPosition(100,100);
     m_gui.add(addTaskWindow);
 
     auto vLayout = tgui::VerticalLayout::create();
