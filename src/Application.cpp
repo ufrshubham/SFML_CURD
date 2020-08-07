@@ -100,7 +100,6 @@ void Application::InitUI()
         {
             taskData[1] = "Completed";
         }
-
         listView->addItem(taskData);
         listView->setItemHeight(40);
         listView->setTextSize(20);
@@ -193,10 +192,14 @@ void Application::AddTaskGui()
         {
             tStatus = TaskStatus::Completed;
         }
-        task.SetStatus(tStatus);
-        task.SetTitle(taskTitle->getText().toUtf8());
+        if(taskTitle->getText().toUtf8()!=""){
+            //i don
+            task.SetStatus(tStatus);
+            task.SetTitle(taskTitle->getText().toUtf8());
 
-        this->m_dman.AddTask(task);
+            this->m_dman.AddTask(task);
+        }
+        
         addTaskWindow->close();
         this->InitUI();
     });
