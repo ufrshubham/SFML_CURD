@@ -63,6 +63,14 @@ void Application::Run()
             {
                 m_window.close();
             }
+            else if (event.type == sf::Event::KeyPressed)
+            {
+                if (event.key.code == sf::Keyboard::Delete)
+                {
+                    this->DeleteSelected();
+                }
+            }
+
             m_gui.handleEvent(event);
         }
 
@@ -95,8 +103,20 @@ void Application::InitUI()
         listView->addItem(taskData);
         listView->setItemHeight(40);
         listView->setTextSize(20);
+        listView->onDoubleClick([this]() {
+            this->AddTaskGui();
+        });
         listView->setSize("100%, 100%");
     }
+
+#ifdef DEBUG
+    listView->onItemSelect([listView](int index) {
+        if (index >= 0)
+        {
+            std::cout << "Current selection : " << listView->getItem(index) << std::endl;
+        }
+    });
+#endif
 
     auto button = tgui::Button::create();
     button->setText("+");
@@ -105,7 +125,10 @@ void Application::InitUI()
     button->onClick([this]() {
         this->AddTaskGui();
     });
-    m_gui.add(listView);
+
+    // Second parameter is like a key which can be used to later
+    // retrive this widget.
+    m_gui.add(listView, "ListView");
     m_gui.add(button);
 }
 
@@ -134,7 +157,7 @@ void Application::AddTaskGui()
     auto addTaskWindow = tgui::ChildWindow::create("Add new task");
     addTaskWindow->setTextSize(20);
     addTaskWindow->setSize(600, 200);
-    addTaskWindow->setPosition(100,100);
+    addTaskWindow->setPosition(100, 100);
     m_gui.add(addTaskWindow);
 
     auto vLayout = tgui::VerticalLayout::create();
@@ -192,4 +215,17 @@ void Application::AddTaskGui()
     vLayout->addSpace(0.5f);
 
     addTaskWindow->add(vLayout);
+}
+
+void Application::DeleteSelected()
+{
+    auto listView = m_gui.get<tgui::ListView>("ListView");
+    if (listView)
+    {
+        int index = listView->getSelectedItemIndex();
+        if (index >= 0)
+        {
+            listView->removeItem(index);
+        }
+    }
 }
