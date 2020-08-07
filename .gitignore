@@ -358,6 +358,4 @@ build/
 
 # Scripts
 .do_not_delete
-.vscode
-build
 tgui
