@@ -169,10 +169,16 @@ void Application::AddTaskGui()
         {
             tStatus = TaskStatus::Completed;
         }
-        task.SetStatus(tStatus);
-        task.SetTitle(taskTitle->getText().toUtf8());
+        if(taskTitle->getText().toUtf8()==""){
 
-        this->m_dman.AddTask(task);
+        }
+        else{
+            task.SetStatus(tStatus);
+            task.SetTitle(taskTitle->getText().toUtf8());
+
+            this->m_dman.AddTask(task);
+        }
+        
         addTaskWindow->close();
         this->InitUI();
     });
