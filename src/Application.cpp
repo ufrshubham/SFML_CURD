@@ -103,12 +103,9 @@ void Application::InitUI()
         listView->addItem(taskData);
         listView->setItemHeight(40);
         listView->setTextSize(20);
-        listView->onDoubleClick([this]() {
-            this->AddTaskGui();
-        });
         listView->setSize("100%, 100%");
     }
-
+    
 #ifdef DEBUG
     listView->onItemSelect([listView](int index) {
         if (index >= 0)
@@ -219,13 +216,30 @@ void Application::AddTaskGui()
 
 void Application::DeleteSelected()
 {
+    auto task=Task();
     auto listView = m_gui.get<tgui::ListView>("ListView");
     if (listView)
     {
         int index = listView->getSelectedItemIndex();
         if (index >= 0)
         {
-            listView->removeItem(index);
+           auto task=Task();
+           auto title=listView->getItemCell(index,0).toUtf8();
+           auto tStatus = TaskStatus::Pending;
+           auto status=1;
+           if (listView->getItemCell(index,1) == "Pending"){
+               tStatus = TaskStatus::Pending;
+           }
+           else{
+               tStatus = TaskStatus::Completed;
+           }
+           task.SetStatus(tStatus);
+           task.SetTitle(title);
+
+           this->m_dman.RemoveTask(task);
+           listView->removeItem(index);
+           this->InitUI();
+           
         }
     }
 }
