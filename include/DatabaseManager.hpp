@@ -70,6 +70,9 @@ public:
      * 
      * @return std::vector<Task> 
      */
+
+    void RemoveTask(const Task &task);
+    
     std::vector<Task> GetAllTasks() const;
 
     /**

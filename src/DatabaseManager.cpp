@@ -94,6 +94,26 @@ std::vector<Task> DatabaseManager::GetAllTasks() const
     return tasks;
 }
 
+void DatabaseManager::RemoveTask(const Task &task)
+{
+    if (!m_dbRef)
+    {
+        throw std::runtime_error("Trying to delete a task before creating or opening a database.");
+    }
+
+    std::stringstream ss;
+    ss << "DELETE FROM TODO WHERE TITLE = '"<< task.GetTitle() << "' AND " << "STATUS =" << (int)task.GetStatus();
+
+    char *errorMsg = nullptr;
+    if (sqlite3_exec(m_dbRef, ss.str().c_str(), nullptr, nullptr, &errorMsg) != SQLITE_OK)
+    {
+        // Create a string object so that errorMsg can be freed before we throw.
+        std::string errorStr(errorMsg);
+        sqlite3_free(errorMsg);
+        throw std::runtime_error(errorStr);
+    }
+}
+
 int DatabaseManager::CollectTasksCallBack(void *ptrToTaskVec, int nEntries, char **entries, char **columns)
 {
     if (ptrToTaskVec)
