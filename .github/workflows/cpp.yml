@@ -13,10 +13,16 @@ jobs:
         uses: textbook/git-checkout-submodule-action@master
       - name: dependencies
         run: sudo apt-get update && sudo apt install -y libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.6"
+          architecture: "x64"
+      - name: setup
+        run: python3 scripts/perform_initial_setup.py
       - name: mkdir
         run: mkdir build
       - name: cd
-        run: cd build
+        run: ls && cd build && ls
       - name: cmake
         run: cmake ..
       - name: make
