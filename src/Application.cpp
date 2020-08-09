@@ -106,18 +106,6 @@ void Application::InitUI()
         listView->setTextSize(20);
         listView->setSize("100%, 100%");
     }
-<<<<<<< HEAD
-    
-#ifdef DEBUG
-    listView->onItemSelect([listView](int index) {
-        if (index >= 0)
-        {
-            std::cout << "Current selection : " << listView->getItem(index) << std::endl;
-        }
-    });
-#endif
-=======
->>>>>>> cc653f205bb99c87f983225cf62dd38ef9af5a74
 
     auto button = tgui::Button::create();
     button->setText("+");
@@ -238,29 +226,9 @@ void Application::DeleteSelected()
         int index = listView->getSelectedItemIndex();
         if (index >= 0)
         {
-<<<<<<< HEAD
-           auto task=Task();
-           auto title=listView->getItemCell(index,0).toUtf8();
-           auto tStatus = TaskStatus::Pending;
-           auto status=1;
-           if (listView->getItemCell(index,1) == "Pending"){
-               tStatus = TaskStatus::Pending;
-           }
-           else{
-               tStatus = TaskStatus::Completed;
-           }
-           task.SetStatus(tStatus);
-           task.SetTitle(title);
-
-           this->m_dman.RemoveTask(task);
-           listView->removeItem(index);
-           this->InitUI();
-           
-=======
             auto taskID = listView->getItemData<int>(index);
             this->m_dman.RemoveTask(taskID);
             listView->removeItem(index);
->>>>>>> cc653f205bb99c87f983225cf62dd38ef9af5a74
         }
     }
 }

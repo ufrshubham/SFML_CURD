@@ -94,11 +94,7 @@ std::vector<Task> DatabaseManager::GetAllTasks() const
     return tasks;
 }
 
-<<<<<<< HEAD
-void DatabaseManager::RemoveTask(const Task &task)
-=======
 void DatabaseManager::RemoveTask(int taskID)
->>>>>>> cc653f205bb99c87f983225cf62dd38ef9af5a74
 {
     if (!m_dbRef)
     {
@@ -106,11 +102,7 @@ void DatabaseManager::RemoveTask(int taskID)
     }
 
     std::stringstream ss;
-<<<<<<< HEAD
-    ss << "DELETE FROM TODO WHERE TITLE = '"<< task.GetTitle() << "' AND " << "STATUS =" << (int)task.GetStatus();
-=======
     ss << "DELETE FROM TODO WHERE ID = '" << taskID << "'";
->>>>>>> cc653f205bb99c87f983225cf62dd38ef9af5a74
 
     char *errorMsg = nullptr;
     if (sqlite3_exec(m_dbRef, ss.str().c_str(), nullptr, nullptr, &errorMsg) != SQLITE_OK)
@@ -122,8 +114,6 @@ void DatabaseManager::RemoveTask(int taskID)
     }
 }
 
-<<<<<<< HEAD
-=======
 int DatabaseManager::GetNextTaskID() const
 {
     int nextTaskID = 0;
@@ -165,7 +155,6 @@ int DatabaseManager::GetNextTaskID() const
     return nextTaskID;
 }
 
->>>>>>> cc653f205bb99c87f983225cf62dd38ef9af5a74
 int DatabaseManager::CollectTasksCallBack(void *ptrToTaskVec, int nEntries, char **entries, char **columns)
 {
     if (ptrToTaskVec)
