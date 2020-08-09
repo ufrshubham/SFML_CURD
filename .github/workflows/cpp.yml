@@ -8,19 +8,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.6'
-    - name: Pulling Dependencies
-      run: python scripts/install_dep.py
-    - name: Performing Initial Setup
-      run: python scripts/perform_initial_setup.py
-    - name: mkdir
-      run: mkdir build
-    - name: cd
-      run: cd build
-    - name: cmake
-      run: cmake ..
-    - name: make
-      run: make
+      - uses: actions/checkout@v2
+      - name: Checkout submodules
+        uses: textbook/git-checkout-submodule-action@master
+        with:
+          remote: true
+      - name: dependencies
+        run: sudo apt-get update && sudo apt install -y libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev
+      - name: mkdir
+        run: mkdir build
+      - name: cd
+        run: cd build
+      - name: cmake
+        run: cmake ..
+      - name: make
+        run: make
