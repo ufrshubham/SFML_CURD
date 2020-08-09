@@ -18,7 +18,7 @@ jobs:
           python-version: "3.6"
           architecture: "x64"
       - name: setup
-        run: python3 scripts/perform_initial_setup.py
+        run: sudo python3 scripts/perform_initial_setup.py
       - name: mkdir
         run: mkdir build
       - name: cd
