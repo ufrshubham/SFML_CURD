@@ -65,15 +65,26 @@ public:
     void AddTask(const Task &task);
 
     /**
+     * @brief Removes the task with given taskID from database.
+     * 
+     * @param taskID - ID of task to be deleted.
+     */
+    void RemoveTask(int taskID);
+
+    /**
      * @brief Get the All Tasks from Todo table.
      *        Will return an empty array if called before table is initialized.
      * 
      * @return std::vector<Task> 
      */
-
-    void RemoveTask(const Task &task);
-    
     std::vector<Task> GetAllTasks() const;
+
+    /**
+     * @brief Gets the next task ID. Should be used while inserting new tasks.
+     * 
+     * @return int 
+     */
+    int GetNextTaskID() const;
 
     /**
      * @brief Collects task details and fill ptrToTaskVec with it.

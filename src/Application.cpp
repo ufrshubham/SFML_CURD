@@ -87,12 +87,12 @@ void Application::InitUI()
     listView->addColumn("Status", 200);
 
     const auto &tasks = m_dman.GetAllTasks();
-    for (const auto &task : tasks)
+    for (int i = 0; i < tasks.size(); ++i)
     {
         std::vector<tgui::String> taskData(2);
-        taskData[0] = task.GetTitle();
+        taskData[0] = tasks[i].GetTitle();
 
-        if (task.GetStatus() == TaskStatus::Pending)
+        if (tasks[i].GetStatus() == TaskStatus::Pending)
         {
             taskData[1] = "Pending";
         }
@@ -101,19 +101,11 @@ void Application::InitUI()
             taskData[1] = "Completed";
         }
         listView->addItem(taskData);
+        listView->setItemData(i, tasks[i].GetID());
         listView->setItemHeight(40);
         listView->setTextSize(20);
         listView->setSize("100%, 100%");
     }
-    
-#ifdef DEBUG
-    listView->onItemSelect([listView](int index) {
-        if (index >= 0)
-        {
-            std::cout << "Current selection : " << listView->getItem(index) << std::endl;
-        }
-    });
-#endif
 
     auto button = tgui::Button::create();
     button->setText("+");
@@ -183,22 +175,33 @@ void Application::AddTaskGui()
     submitButton->setSize("80%", "20%");
 
     submitButton->onClick([this, taskStatus, taskTitle, addTaskWindow]() {
-        auto task = Task();
-        auto tStatus = TaskStatus::Pending;
-        if (taskStatus->isChecked())
+        if (!(taskTitle->getText().toUtf8().empty()))
         {
-            tStatus = TaskStatus::Completed;
-        }
-        if(taskTitle->getText().toUtf8()!=""){
-            //i don
-            task.SetStatus(tStatus);
-            task.SetTitle(taskTitle->getText().toUtf8());
+            auto listView = m_gui.get<tgui::ListView>("ListView");
+            if (listView)
+            {
+                std::vector<tgui::String> taskData(2);
+                taskData[0] = taskTitle->getText();
+                taskData[1] = taskStatus->isChecked() ? "Completed" : "Pending";
+                int taskID = this->m_dman.GetNextTaskID();
 
-            this->m_dman.AddTask(task);
+                auto index = listView->addItem(taskData);
+                listView->setItemData(index, taskID);
+
+                auto task = Task(taskID);
+                auto tStatus = TaskStatus::Pending;
+
+                if (taskStatus->isChecked())
+                {
+                    tStatus = TaskStatus::Completed;
+                }
+
+                task.SetStatus(tStatus);
+                task.SetTitle(taskTitle->getText().toUtf8());
+                this->m_dman.AddTask(task);
+            }
         }
-        
         addTaskWindow->close();
-        this->InitUI();
     });
 
     hLayout2->addSpace(0.5f);
@@ -216,30 +219,15 @@ void Application::AddTaskGui()
 
 void Application::DeleteSelected()
 {
-    auto task=Task();
     auto listView = m_gui.get<tgui::ListView>("ListView");
     if (listView)
     {
         int index = listView->getSelectedItemIndex();
         if (index >= 0)
         {
-           auto task=Task();
-           auto title=listView->getItemCell(index,0).toUtf8();
-           auto tStatus = TaskStatus::Pending;
-           auto status=1;
-           if (listView->getItemCell(index,1) == "Pending"){
-               tStatus = TaskStatus::Pending;
-           }
-           else{
-               tStatus = TaskStatus::Completed;
-           }
-           task.SetStatus(tStatus);
-           task.SetTitle(title);
-
-           this->m_dman.RemoveTask(task);
-           listView->removeItem(index);
-           this->InitUI();
-           
+            auto taskID = listView->getItemData<int>(index);
+            this->m_dman.RemoveTask(taskID);
+            listView->removeItem(index);
         }
     }
 }
