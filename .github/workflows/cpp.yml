@@ -24,5 +24,5 @@ jobs:
       - name: cmake build
         run: sudo cmake .
       - name: make
-        run: sudo make -C build/ all
+        run: sudo make all
 
