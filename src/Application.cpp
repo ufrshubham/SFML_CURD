@@ -219,7 +219,6 @@ void Application::AddTaskGui()
 
 void Application::DeleteSelected()
 {
-    auto task=Task();
     auto listView = m_gui.get<tgui::ListView>("ListView");
     if (listView)
     {
