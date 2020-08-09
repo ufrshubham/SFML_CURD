@@ -11,7 +11,7 @@
 
 #include "Task.hpp"
 
-Task::Task() : m_title(), m_status(TaskStatus::Pending) {}
+Task::Task(int taskID) : m_taskID(taskID), m_title(), m_status(TaskStatus::Pending) {}
 
 Task::~Task() {}
 
@@ -33,4 +33,9 @@ const std::string &Task::GetTitle() const
 void Task::SetTitle(const std::string &title)
 {
     m_title = title;
+}
+
+int Task::GetID() const
+{
+    return m_taskID;
 }

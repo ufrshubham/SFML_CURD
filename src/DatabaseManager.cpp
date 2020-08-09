@@ -4,9 +4,9 @@
  * @brief Method definitions for DatabaseManager class.
  * @version 0.1
  * @date 2020-05-16
- * 
+ *
  * Copyright (c) 2020 Shubham Kamble
- * 
+ *
  */
 
 #include "DatabaseManager.hpp"
@@ -94,7 +94,11 @@ std::vector<Task> DatabaseManager::GetAllTasks() const
     return tasks;
 }
 
+<<<<<<< HEAD
 void DatabaseManager::RemoveTask(const Task &task)
+=======
+void DatabaseManager::RemoveTask(int taskID)
+>>>>>>> cc653f205bb99c87f983225cf62dd38ef9af5a74
 {
     if (!m_dbRef)
     {
@@ -102,7 +106,11 @@ void DatabaseManager::RemoveTask(const Task &task)
     }
 
     std::stringstream ss;
+<<<<<<< HEAD
     ss << "DELETE FROM TODO WHERE TITLE = '"<< task.GetTitle() << "' AND " << "STATUS =" << (int)task.GetStatus();
+=======
+    ss << "DELETE FROM TODO WHERE ID = '" << taskID << "'";
+>>>>>>> cc653f205bb99c87f983225cf62dd38ef9af5a74
 
     char *errorMsg = nullptr;
     if (sqlite3_exec(m_dbRef, ss.str().c_str(), nullptr, nullptr, &errorMsg) != SQLITE_OK)
@@ -114,16 +122,65 @@ void DatabaseManager::RemoveTask(const Task &task)
     }
 }
 
+<<<<<<< HEAD
+=======
+int DatabaseManager::GetNextTaskID() const
+{
+    int nextTaskID = 0;
+
+    // This lambda will be called when sqlite engine runs our query stored in ss below.
+    auto collectNextTaskID = [](void *ptr, int nEntries, char **entries, char **columns) -> int {
+        if (ptr)
+        {
+            // We can safely cast it to int*
+            int *nextTaskID = reinterpret_cast<int *>(ptr);
+            if (nextTaskID)
+            {
+                // I could have directly used index 1 to get the ID from the entries we get.
+                // But it does not hurt to have a few checks.
+                for (int i = 0; i < nEntries; ++i)
+                {
+                    if (columns[i] == std::string("seq"))
+                    {
+                        *nextTaskID = std::stoi(entries[i]) + 1;
+                    }
+                }
+            }
+        }
+        return 0;
+    };
+
+    std::stringstream ss;
+    ss << "SELECT * FROM SQLITE_SEQUENCE WHERE NAME='TODO'";
+
+    char *errorMsg = nullptr;
+    if (sqlite3_exec(m_dbRef, ss.str().c_str(), collectNextTaskID, &nextTaskID, &errorMsg) != SQLITE_OK)
+    {
+        // Create a string object so that errorMsg can be freed before we throw.
+        std::string errorStr(errorMsg);
+        sqlite3_free(errorMsg);
+        throw std::runtime_error(errorStr);
+    }
+
+    return nextTaskID;
+}
+
+>>>>>>> cc653f205bb99c87f983225cf62dd38ef9af5a74
 int DatabaseManager::CollectTasksCallBack(void *ptrToTaskVec, int nEntries, char **entries, char **columns)
 {
     if (ptrToTaskVec)
     {
+        std::vector<int> idVec;
         std::vector<std::string> titleVec;
         std::vector<TaskStatus> statusVec;
 
         for (int i = 0; i < nEntries; ++i)
         {
-            if (columns[i] == std::string("TITLE"))
+            if (columns[i] == std::string("ID"))
+            {
+                idVec.emplace_back(std::stoi(entries[i]));
+            }
+            else if (columns[i] == std::string("TITLE"))
             {
                 titleVec.emplace_back(entries[i]);
             }
@@ -137,7 +194,8 @@ int DatabaseManager::CollectTasksCallBack(void *ptrToTaskVec, int nEntries, char
         {
             for (int i = 0; i < titleVec.size(); ++i)
             {
-                Task task;
+                std::cout << idVec[i] << std::endl;
+                auto task = Task(idVec[i]);
                 task.SetTitle(titleVec.at(i));
                 task.SetStatus(statusVec.at(i));
                 vecTasks->push_back(task);

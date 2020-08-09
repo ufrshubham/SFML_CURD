@@ -26,15 +26,18 @@ enum class TaskStatus
 
 class Task
 {
+    int m_taskID;
     std::string m_title;
     TaskStatus m_status;
 
 public:
+    
     /**
      * @brief Construct a new Task object
      * 
+     * @param taskID 
      */
-    Task();
+    Task(int taskID);
 
     /**
      * @brief Destroy the Task object
@@ -69,4 +72,11 @@ public:
      * @param title to set.
      */
     void SetTitle(const std::string &title);
+
+    /**
+     * @brief Returns the unique identifier for this task.
+     * 
+     * @return int 
+     */
+    int GetID() const;
 };
