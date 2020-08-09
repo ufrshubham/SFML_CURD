@@ -12,7 +12,7 @@ jobs:
       - name: Checkout submodules
         uses: textbook/git-checkout-submodule-action@master
       - name: dependencies
-        run: sudo apt update && sudo apt install -y libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev make mesa
+        run: sudo apt update && sudo apt install -y libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev make mesa-utils mesa-common-dev
       - uses: actions/setup-python@v2
         with:
           python-version: "3.6"
