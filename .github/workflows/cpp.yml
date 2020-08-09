@@ -21,9 +21,8 @@ jobs:
         run: sudo python3 scripts/perform_initial_setup.py
       - name: mkdir
         run: mkdir -p build
-      - name: cd
-        run: ls && cd build && ls
-      - name: cmake
-        run: cmake ..
-      - name: make
-        run: make
+      - name: cmake build
+        run: cmake -Bbuild -H.
+      - name: cmake make
+        run: cmake --build build/ --target all
+
