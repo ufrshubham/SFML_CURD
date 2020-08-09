@@ -22,7 +22,7 @@ jobs:
       - name: mkdir
         run: mkdir -p build
       - name: cmake build
-        run: cmake build/
+        run: cmake .
       - name: make
         run: make -C build/
 
