@@ -12,7 +12,7 @@ jobs:
       - name: Checkout submodules
         uses: textbook/git-checkout-submodule-action@master
       - name: dependencies
-        run: sudo apt update && sudo apt install -y libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev make libgl1-mesa-dev g++-9
+        run: sudo apt update && sudo apt install -y libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev make libgl1-mesa-dev
       - name: CC
         run: export CC=/usr/local/bin/gcc-9
       - name: CXX
@@ -26,7 +26,7 @@ jobs:
       - name: mkdir
         run: mkdir -p build
       - name: cmake build
-        run: sudo cmake .
+        run: sudo cmake -D CMAKE_C_COMPILER=gcc-9 -D CMAKE_CXX_COMPILER=g++-9 .
       - name: make
         run: sudo make all
 
