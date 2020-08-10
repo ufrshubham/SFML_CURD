@@ -13,6 +13,10 @@ jobs:
         uses: textbook/git-checkout-submodule-action@master
       - name: dependencies
         run: sudo apt update && sudo apt install -y libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev make libgl1-mesa-dev g++-9
+      - name: CC
+        run: export CC=/usr/local/bin/gcc-9
+      - name: CXX
+        run: export CXX=/usr/local/bin/g++-9
       - uses: actions/setup-python@v2
         with:
           python-version: "3.6"
