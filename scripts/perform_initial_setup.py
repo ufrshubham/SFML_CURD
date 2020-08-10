@@ -48,6 +48,7 @@ def main():
     with open(my_path.parent.joinpath('vendor/sfml/CMakeLists.txt'), 'w') as cmake_file:
         print('\nModifying CMakeLists.txt for SFML to build static libs.')
         cmake_file.writelines(lines_to_write)
+        print(lines_to_write)
     
     lines_to_write = []
     with open(my_path.parent.joinpath('vendor/tgui/CMakeLists.txt'), 'r') as cmake_file:
@@ -62,6 +63,7 @@ def main():
     with open(my_path.parent.joinpath('vendor/tgui/CMakeLists.txt'), 'w') as cmake_file:
         print('\nModifying CMakeLists.txt for TGUI to build static libs.')
         cmake_file.writelines(lines_to_write)
+        print(lines_to_write)
     
     if not my_path.parent.joinpath('build').exists():
         print('\nCreating build directory.')
