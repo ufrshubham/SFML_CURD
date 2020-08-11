@@ -12,9 +12,10 @@
 #include <iostream>
 #include "DatabaseManager.hpp"
 #include "Application.hpp"
+#include "CommonStrings.hpp"
 
 int main()
 {
-    auto app = Application(800, 400, "Sfml-Sqlite Curd", "sqlite-is-working.db");
+    auto app = Application(800, 400, GetString(StrID::APP_TITLE), "sqlite-is-working.db");
     app.Run();
 }
