@@ -11,6 +11,7 @@
 
 #include "Application.hpp"
 #include "TGUI/TGUI.hpp"
+#include "CommonStrings.hpp"
 
 #include <iostream>
 
@@ -33,7 +34,7 @@ void Application::Run()
     }
     else // Might have to move all this into a private method.
     {
-        auto childWindow = tgui::ChildWindow::create("Error");
+        auto childWindow = tgui::ChildWindow::create(GetString(StrID::ERROR_WINDOW_TITLE));
         childWindow->setTitleTextSize(20);
         childWindow->setSize({400, 200});
 
@@ -42,7 +43,7 @@ void Application::Run()
         errorLabel->setPosition({((childWindow->getSize().x / 2) - (errorLabel->getSize().x / 2)), ((childWindow->getSize().y / 2) - (70))});
         childWindow->add(errorLabel);
 
-        auto okButton = tgui::Button::create("Okay");
+        auto okButton = tgui::Button::create(GetString(StrID::OKAY_BUTTON_TITLE));
         okButton->setTextSize(20);
         okButton->setPosition({((childWindow->getSize().x / 2) - (okButton->getSize().x / 2)), ((childWindow->getSize().y / 2) - (10))});
         okButton->onClick([this]() {
@@ -83,8 +84,8 @@ void Application::Run()
 void Application::InitUI()
 {
     auto listView = tgui::ListView::create();
-    listView->addColumn("Todo", 400);
-    listView->addColumn("Status", 200);
+    listView->addColumn(GetString(StrID::TASK_NAME_COLUMN_TITLE), 400, tgui::ListView::ColumnAlignment::Center);
+    listView->addColumn(GetString(StrID::TASK_STATUS_COLUMN_TITLE), 200, tgui::ListView::ColumnAlignment::Center);
 
     const auto &tasks = m_dman.GetAllTasks();
     for (int i = 0; i < tasks.size(); ++i)
@@ -94,11 +95,11 @@ void Application::InitUI()
 
         if (tasks[i].GetStatus() == TaskStatus::Pending)
         {
-            taskData[1] = "Pending";
+            taskData[1] = GetString(StrID::TASK_PENDING);
         }
         else
         {
-            taskData[1] = "Completed";
+            taskData[1] = GetString(StrID::TASK_COMPLETED);
         }
         listView->addItem(taskData);
         listView->setItemData(i, tasks[i].GetID());
@@ -143,7 +144,7 @@ DatabaseStatus Application::InitDB()
 void Application::AddTaskGui()
 {
     // Major refactoring needed !!!!!
-    auto addTaskWindow = tgui::ChildWindow::create("Add new task");
+    auto addTaskWindow = tgui::ChildWindow::create(GetString(StrID::ADD_TASK_WINDOW_TITLE));
     addTaskWindow->setTextSize(20);
     addTaskWindow->setSize(600, 200);
     addTaskWindow->setPosition(100, 100);
@@ -156,8 +157,8 @@ void Application::AddTaskGui()
     hLayout->setSize("100%", "80%");
 
     auto taskTitle = tgui::TextBox::create();
-    taskTitle->setDefaultText("Enter task title here");
-    auto taskStatus = tgui::CheckBox::create("Completed?");
+    taskTitle->setDefaultText(GetString(StrID::ADD_TASK_HINT_STR));
+    auto taskStatus = tgui::CheckBox::create(GetString(StrID::ADD_TASK_COMPLETED_TOGGLE_TITLE));
 
     hLayout->addSpace(0.2f);
     hLayout->add(taskTitle);
@@ -171,7 +172,7 @@ void Application::AddTaskGui()
     auto hLayout2 = tgui::HorizontalLayout::create();
     hLayout2->setSize("100%", "20%");
 
-    auto submitButton = tgui::Button::create("Done");
+    auto submitButton = tgui::Button::create(GetString(StrID::OKAY_BUTTON_TITLE));
     submitButton->setSize("80%", "20%");
 
     submitButton->onClick([this, taskStatus, taskTitle, addTaskWindow]() {
@@ -182,7 +183,7 @@ void Application::AddTaskGui()
             {
                 std::vector<tgui::String> taskData(2);
                 taskData[0] = taskTitle->getText();
-                taskData[1] = taskStatus->isChecked() ? "Completed" : "Pending";
+                taskData[1] = taskStatus->isChecked() ? GetString(StrID::TASK_COMPLETED) : GetString(StrID::TASK_PENDING);
                 int taskID = this->m_dman.GetNextTaskID();
 
                 auto index = listView->addItem(taskData);

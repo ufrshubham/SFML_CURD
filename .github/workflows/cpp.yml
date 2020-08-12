@@ -1,0 +1,32 @@
+name: build
+on:
+  push:
+    branches: [master, development]
+  pull_request:
+    branches: [master, development]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout submodules
+        uses: textbook/git-checkout-submodule-action@master
+      - name: dependencies
+        run: sudo apt update && sudo apt install -y libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev make libgl1-mesa-dev
+      - name: CC
+        run: export CC=/usr/local/bin/gcc-9
+      - name: CXX
+        run: export CXX=/usr/local/bin/g++-9
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.6"
+          architecture: "x64"
+      - name: setup
+        run: sudo python3 scripts/perform_initial_setup.py
+      - name: mkdir
+        run: mkdir -p build
+      - name: cmake build
+        run: sudo cmake -D CMAKE_C_COMPILER=gcc-9 -D CMAKE_CXX_COMPILER=g++-9 .
+      - name: make
+        run: sudo make all
+

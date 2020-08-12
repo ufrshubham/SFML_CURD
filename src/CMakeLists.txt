@@ -37,10 +37,12 @@ add_executable(sqlite-sfml
                 ${include_dir}/DatabaseManager.hpp 
                 ${include_dir}/Task.hpp
                 ${include_dir}/Application.hpp
+                ${include_dir}/CommonStrings.hpp
                 main.cpp 
                 DatabaseManager.cpp
                 Task.cpp
                 Application.cpp
+                CommonStrings.cpp
                 )
 
 # Link with required libraries
