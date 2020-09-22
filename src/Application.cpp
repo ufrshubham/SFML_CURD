@@ -156,7 +156,7 @@ void Application::AddTaskGui()
     auto hLayout = tgui::HorizontalLayout::create();
     hLayout->setSize("100%", "80%");
 
-    auto taskTitle = tgui::TextBox::create();
+    auto taskTitle = tgui::TextArea::create();
     taskTitle->setDefaultText(GetString(StrID::ADD_TASK_HINT_STR));
     auto taskStatus = tgui::CheckBox::create(GetString(StrID::ADD_TASK_COMPLETED_TOGGLE_TITLE));
 
