@@ -86,6 +86,8 @@ void Application::InitUI()
     auto listView = tgui::ListView::create();
     listView->addColumn(GetString(StrID::TASK_NAME_COLUMN_TITLE), 400, tgui::ListView::ColumnAlignment::Center);
     listView->addColumn(GetString(StrID::TASK_STATUS_COLUMN_TITLE), 200, tgui::ListView::ColumnAlignment::Center);
+    listView->setHeight("100%");
+    listView->setWidth("100%");
 
     const auto &tasks = m_dman.GetAllTasks();
     for (int i = 0; i < tasks.size(); ++i)
