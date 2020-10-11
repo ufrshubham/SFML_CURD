@@ -14,8 +14,8 @@ import subprocess
 def main():
     if platform.system() == 'Linux':
         try:
-            print("\nsudo apt install libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev libxcursor-dev")
-            subprocess.call(["sudo", "apt", "install", "libudev-dev", "libopenal-dev", "libvorbis-dev", "libflac-dev", "libxrandr-dev", "libfreetype6-dev", "libxcursor-dev"])
+            print("\nsudo apt install libudev-dev libopenal-dev libvorbis-dev libflac-dev libxrandr-dev libfreetype6-dev libxcursor-dev libx11-dev")
+            subprocess.call(["sudo", "apt", "install", "libudev-dev", "libopenal-dev", "libvorbis-dev", "libflac-dev", "libxrandr-dev", "libfreetype6-dev", "libxcursor-dev", "libx11-dev"])
         except Exception:
             print('\nOnly apt package manager is supported right now.')
 
