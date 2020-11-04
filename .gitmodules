@@ -1,6 +1,0 @@
-[submodule "sfml"]
-	path = vendor/sfml
-	url = https://github.com/SFML/SFML.git
-[submodule "tgui"]
-	path = vendor/tgui
-	url = https://github.com/texus/TGUI.git
