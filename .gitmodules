@@ -1,0 +1,3 @@
+[submodule "vendor/elements"]
+	path = vendor/elements
+	url = https://github.com/ufrshubham/elements.git

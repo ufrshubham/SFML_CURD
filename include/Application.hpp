@@ -11,24 +11,10 @@
 
 #pragma once
 
-#include "SFML/Graphics.hpp"
-#include "TGUI/TGUI.hpp"
 #include "DatabaseManager.hpp"
 
 class Application
 {
-    /**
-     * @brief This is the main render window of this application.
-     * 
-     */
-    sf::RenderWindow m_window;
-
-    /**
-     * @brief The UI object to handle all TGUI widgets and their events.
-     * 
-     */
-    tgui::Gui m_gui;
-
     /**
      * @brief The database manager.
      * 

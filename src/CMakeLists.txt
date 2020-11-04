@@ -1,49 +1,24 @@
 # Copyright (c) 2020 - Shubham Kamble
 
-# Set path to all the Find.cmake files
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
+set(TODO_PLUS_PLUS_SOURCE_FILES
+    Application.cpp
+    CommonStrings.cpp
+    DatabaseManager.cpp
+    main.cpp
+    Task.cpp)
 
-# Set SFML_DIR so that find_package() will find SFMLConfig.cmake there
-set(SFML_DIR ${PROJECT_BINARY_DIR}/vendor/sfml/)
+set(TODO_PLUS_PLUS_HEADER_FILES
+    ../include/Application.hpp
+    ../include/CommonStrings.hpp
+    ../include/DatabaseManager.hpp
+    ../include/Task.hpp)
 
-# SFML related stuff
-# If you want to link statically to sfml uncomment this line
-set(SFML_STATIC_LIBRARIES TRUE)
+add_executable(Todo-Plus-Plus ${TODO_PLUS_PLUS_SOURCE_FILES} ${TODO_PLUS_PLUS_HEADER_FILES})
 
-# This section is not needed now, because SFML and SQlite will be build from scratch.
-############################################################################
-# SFML has changed the way to find sfml from 2.5 and onwards.
-# FindSFML.cmake present in cmake_modules will not work.
-# If you have SFML 2.5 or late remove the Detect and add SFML section 
-# and uncomment the below line.
-# find_package(SFML 2.5 COMPONENTS graphics window system)
+set_target_properties(Todo-Plus-Plus PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED YES)
 
-# Detect and add Sqlite3
-# find_package(SQLITE3 REQUIRED)
-############################################################################
+target_include_directories(Todo-Plus-Plus PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../include/  
+                                               ${CMAKE_CURRENT_SOURCE_DIR}/../vendor/elements/lib/include/
+                                               ${CMAKE_CURRENT_SOURCE_DIR}/../vendor/sqlite/)
 
-# All header will be in ./include/
-set(include_dir ${PROJECT_SOURCE_DIR}/include)
-
-include_directories(
-                        ${include_dir}
-                         ${PROJECT_SOURCE_DIR}/vendor/sfml/include 
-                         ${PROJECT_SOURCE_DIR}/vendor/sqlite
-                         ${PROJECT_SOURCE_DIR}/vendor/tgui/include
-                    )
-
-# Main target
-add_executable(sqlite-sfml 
-                ${include_dir}/DatabaseManager.hpp 
-                ${include_dir}/Task.hpp
-                ${include_dir}/Application.hpp
-                ${include_dir}/CommonStrings.hpp
-                main.cpp 
-                DatabaseManager.cpp
-                Task.cpp
-                Application.cpp
-                CommonStrings.cpp
-                )
-
-# Link with required libraries
-target_link_libraries(sqlite-sfml sfml-graphics sfml-window sfml-system sqlite3 tgui)
+target_link_libraries(Todo-Plus-Plus elements sqlite3)
