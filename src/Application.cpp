@@ -11,6 +11,7 @@
 
 #include "Application.hpp"
 #include "CommonStrings.hpp"
+#include <elements.hpp>
 
 #include <iostream>
 
@@ -29,9 +30,19 @@ void Application::Run()
     {
         InitUI();
     }
-    else // Might have to move all this into a private method.
-    {
-    }
+    using namespace cycfi::elements;
+
+    app _app(0, nullptr, "Todo Plus Plus", "com.ufrshubham.todo-plus-plus");
+    window _win(_app.name());
+    _win.on_close = [&_app]() { _app.stop(); };
+
+    view view_(_win);
+
+    view_.content(
+       scroller(image{ "space.jpg" })
+    );
+
+    _app.run();
 }
 
 void Application::InitUI()
