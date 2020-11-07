@@ -14,8 +14,8 @@
 #include "Application.hpp"
 #include "CommonStrings.hpp"
 
-int main()
+int main(int argc, char* argv[])
 {
-    auto app = Application(800, 400, GetString(StrID::APP_TITLE), "sqlite-is-working.db");
+    auto app = Application(argc, argv, 800, 400, GetString(StrID::APP_TITLE), "sqlite-is-working.db");
     app.Run();
 }

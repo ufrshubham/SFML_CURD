@@ -13,7 +13,7 @@
 #include <map>
 
 static const std::map<StrID, std::string> stringIdMap = {
-    {StrID::APP_TITLE, "To-Do Manager"},
+    {StrID::APP_TITLE, "Todo Plus Plus"},
     {StrID::ERROR_WINDOW_TITLE, "Error"},
     {StrID::OKAY_BUTTON_TITLE, "Okay"},
     {StrID::TASK_NAME_COLUMN_TITLE, "Task Name"},

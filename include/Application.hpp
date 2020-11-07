@@ -12,9 +12,15 @@
 #pragma once
 
 #include "DatabaseManager.hpp"
+#include <elements.hpp>
 
 class Application
 {
+    /**
+     * @brief The underlying elements app.
+     */
+    cycfi::elements::app app;
+
     /**
      * @brief The database manager.
      * 
@@ -61,12 +67,14 @@ public:
     /**
      * @brief Construct a new Application object
      * 
+     * @param argc Number of command line arguments.
+     * @param argv Array of command line arguments.
      * @param width Initial window width for this application.
      * @param height Initial window height for this application.
      * @param title Title for this application.
      * @param databasePath Full path to the database file to be opened. Will be created if not already present.
      */
-    Application(unsigned int width, unsigned int height, const std::string &title, const std::string &databasePath);
+    Application(int argc, char* argv[], unsigned int width, unsigned int height, const std::string &title, const std::string &databasePath);
 
     /**
      * @brief Destroy the Application object

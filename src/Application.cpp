@@ -15,8 +15,10 @@
 
 #include <iostream>
 
-Application::Application(unsigned int width, unsigned int height, const std::string &title, const std::string &databasePath) : m_dman(),
-                                                                                                                               m_databasePath(databasePath)
+Application::Application(int argc, char* argv[], unsigned int width, unsigned int height, const std::string &title, const std::string &databasePath) 
+    :   app(1, nullptr, title, "com.ufrshubham.todo-plus-plus"),
+        m_dman(),
+        m_databasePath(databasePath)
 {
 }
 
@@ -30,19 +32,20 @@ void Application::Run()
     {
         InitUI();
     }
-    using namespace cycfi::elements;
 
-    app _app(0, nullptr, "Todo Plus Plus", "com.ufrshubham.todo-plus-plus");
-    window _win(_app.name());
-    _win.on_close = [&_app]() { _app.stop(); };
+    cycfi::elements::window _win(app.name());
+    _win.on_close = [this]() { this->app.stop(); };
 
-    view view_(_win);
+    cycfi::elements::view view_(_win);
+
+    auto constexpr bkd_color = cycfi::elements::rgba(35, 35, 37, 255);
+    auto background = cycfi::elements::box(bkd_color);
 
     view_.content(
-       scroller(image{ "space.jpg" })
+        background
     );
 
-    _app.run();
+    app.run();
 }
 
 void Application::InitUI()
