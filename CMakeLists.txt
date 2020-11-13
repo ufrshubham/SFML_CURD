@@ -4,7 +4,7 @@ project(Todo-Plus-Plus VERSION 1.0.0)
 
 add_compile_definitions(SFML_STATIC)
 
-option(ELEMENTS_BUILD_EXAMPLES "build Elements library examples" OFF)
+option(ELEMENTS_BUILD_EXAMPLES "build Elements library examples" ON)
 
 # Add all the subdirectories
 add_subdirectory(vendor/elements)

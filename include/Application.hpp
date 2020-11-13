@@ -19,7 +19,19 @@ class Application
     /**
      * @brief The underlying elements app.
      */
-    cycfi::elements::app app;
+    cycfi::elements::app m_app;
+
+    /**
+     * @brief Width of this application.
+     * 
+     */
+    float m_width;
+
+    /**
+     * @brief Height of this application.
+     * 
+     */
+    float m_height;
 
     /**
      * @brief The database manager.
@@ -74,7 +86,7 @@ public:
      * @param title Title for this application.
      * @param databasePath Full path to the database file to be opened. Will be created if not already present.
      */
-    Application(int argc, char* argv[], unsigned int width, unsigned int height, const std::string &title, const std::string &databasePath);
+    Application(int argc, char* argv[], float width, float height, const std::string &title, const std::string &databasePath);
 
     /**
      * @brief Destroy the Application object
